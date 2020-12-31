@@ -23,6 +23,8 @@ const linkListUL = document.querySelector('.link-list');
 /* `showPage` will create and insert(append) li elements
 /* derived from an array of objects each representing a single 
 /* student grouped by a maximum of 9 per page
+/* @@param list type array of objects
+/* @@param page type number
 ***/
 function showPage(list, page) {
   let startIndx = (page * itemsPerPage) - itemsPerPage;
@@ -52,6 +54,7 @@ function showPage(list, page) {
 /* An eventListener is created on the UL element containing the page buttons.
 /* The eventListener will call `showPage` passing the current list and the
 /* new button's target.
+/* @@param list type array of objects
 ***/
 function addPagination(list) {
   const totalPages = Math.ceil(list.length / itemsPerPage);
@@ -83,6 +86,7 @@ function addPagination(list) {
 /* 2 means of submission elements are created: an input field and a button/image.
 /* Contained in `addFilterList` is `execSearch,` used to execute user search and
 /* the 2 addEventListeners which will call `execSearch.` 
+/* @@param list type array of objects
 ***/
 function addFilterList(list) {
   const header = document.querySelector('header');
