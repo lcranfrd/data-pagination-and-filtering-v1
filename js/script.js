@@ -1,6 +1,8 @@
 /*
 Treehouse Techdegree:
 FSJS Project 2 - Data Pagination and Filtering
+Leonard Bennett Crantford
+For Exceeds Expectations
 */
 
 
@@ -18,8 +20,9 @@ const linkListUL = document.querySelector('.link-list');
 
 /***
 /* Create the `showPage` function
-/* This function will create and insert/append the elements needed to display a
-/* "page" of nine /students
+/* `showPage` will create and insert(append) li elements
+/* derived from an array of objects each representing a single 
+/* student grouped by a maximum of 9 per page
 ***/
 function showPage(list, page) {
   let startIndx = (page * itemsPerPage) - itemsPerPage;
@@ -42,9 +45,14 @@ function showPage(list, page) {
 
 /***
 /* Create the `addPagination` function
-/* This function will create and insert/append the elements needed for the pagination buttons
+/* `addPagination` will create and insert(append) li button elements used
+/* for pagination control in viewing pages of studens. The number of buttons
+/* calculated/created is dependant on the length of the passed list. The
+/* current page's button's class is set to highlight the current page.
+/* An eventListener is created on the UL element containing the page buttons.
+/* The eventListener will call `showPage` passing the current list and the
+/* new button's target.
 ***/
-
 function addPagination(list) {
   const totalPages = Math.ceil(list.length / itemsPerPage);
   linkListUL.innerHTML = '';
@@ -56,6 +64,7 @@ function addPagination(list) {
   }
   const linkListBtns = document.querySelectorAll('ul button');
   linkListBtns[0].className = 'active';
+
   linkListUL.addEventListener('click', (e) => {
     if(e.target.tagName === 'BUTTON') {
       for(let i = 0; i < linkListBtns.length; i++) {
@@ -69,10 +78,12 @@ function addPagination(list) {
 }
 
 /***
- * For Exceeds Expectations
- *
- ***/
-
+/* For Exceeds Expectations
+/* `addFilterList will create and insert input search elements for the user.
+/* 2 means of submission elements are created: an input field and a button/image.
+/* Contained in `addFilterList` is `execSearch,` used to execute user search and
+/* the 2 addEventListeners which will call `execSearch.` 
+***/
 function addFilterList(list) {
   const header = document.querySelector('header');
   header.insertAdjacentHTML('beforeend', `
@@ -80,7 +91,14 @@ function addFilterList(list) {
     <input id="search" placeholder="Search by name...">
     <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button>
   </label>`);
-
+  /***
+   * For Exceeds Expectations `execSearch`
+   * `execSearch` will search the student list First Name Last Name string
+   * entries against user input from the elements created by `addFilterList
+   * for match. Matched student list objects will be sent to `showPage` and
+   * `addPagination` for rendering.
+  /* `execSearch` is called by 2 eventListener's each via different event('click', 'keyup')
+  ***/
   function execSearch() {
     const search = document.querySelector('#search').value;
     if(search.length === 0) showPage(data,1);
@@ -97,12 +115,11 @@ function addFilterList(list) {
         linkListUL.innerHTML = '';
     }
   } 
-  
   document.querySelector('#search').addEventListener('keyup', execSearch);
   document.querySelector('input + button').addEventListener('click', execSearch)
 }
 
-// Call functions
+// Initial call functions
 showPage(data,1);
 addPagination(data);
 addFilterList(data);
